@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-$prefixAdmin = 'admin';
+$prefixAdmin = Config::get('exam.url.prefix_admin', 'default');;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,7 +22,7 @@ Route::prefix($prefixAdmin)->group(function () {
     Route::get('users', function () {
         return "/admin/users";
     });
-    
+
     Route::prefix('slider')->group(function () {
         Route::get('', function () {
             return "slider list";
