@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,25 +21,13 @@ Route::get('/', function () {
 });
 
 Route::prefix($prefixAdmin)->group(function () {
-    Route::get('users', function () {
-        return "/admin/users";
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index']);
     });
 
-    Route::prefix('slider')->group(function () {
-        Route::get('', function () {
-            return "slider list";
-        });
-
-        Route::get('edit/{id}', function ($id) {
-            return "slider edit" . $id;
-        })->where('id', '[0-9]+');
-
-        Route::get('delete/{id}', function ($id) {
-            return "delete id" . $id;
-        })->where('id', '[0-9]+');
-    });
-
-    Route::get('category', function () {
-        return "/admin/category";
+    // Slider
+    $prefix = 'slider';
+    Route::prefix($prefix)->group(function () use($prefix) {
+        Route::get('/', [SliderController::class, 'index'])->name($prefix);
     });
 });
