@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::prefix($prefixAdmin)->group(function () {
     Route::prefix('dashboard')->group(function () {
-        Route::get('/', [DashboardController::class, 'index']);
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     });
 
     // Slider
