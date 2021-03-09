@@ -14,4 +14,9 @@ class Template{
         type="button" class="btn btn-round %s">%s</a>', $link, $currenStatus['class'], $currenStatus['name']);
         return $xhtml;
     }
+
+    public static function showItemThumb($controllerName,$itemThumbSrc,$itemThumbName){
+        $xhtml = sprintf('<img src="%s" alt="%s" class="zvn-thumb">', asset("images/$controllerName/$itemThumbSrc"), $itemThumbName);
+        return $xhtml;
+    }
 }

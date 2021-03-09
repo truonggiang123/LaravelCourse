@@ -22,7 +22,7 @@
                     $id             =   $val['id'];
                     $description    =   $val['description'];
                     $link           =   $val['link'];
-                    $thumb          =   $val['thumb'];
+                    $thumb          =   Template::showItemThumb($controllerName,$val['thumb'],$val['name']);
                     $created        =   $val['created'];
                     $created_by     =   $val['created_by'];
                     $modified       =   $val['modified'];
@@ -30,12 +30,12 @@
                     $status         =   Template::showItemStatus($controllerName,$val['status'],$id);
                 @endphp
                 <tr class="even pointer">
-                    <td class="">{{ $key }}</td>
+                    <td class="">{{ $id }}</td>
                     <td width="40%">
                         <p><strong>Name: </strong>{{ $name }}</p>
                         <p><strong>Description: </strong>{{ $description }}</p>
                         <p><strong>Link: </strong>{{ $link }}</p>
-                        <p><img src="" alt="">{{ $thumb }}</p>
+                        <p>{!! $thumb !!}</p>
                     </td>
                     <td>
                         {!! $status !!}
@@ -49,17 +49,19 @@
                         <p><i class="fa fa-clock-o"></i> {{ $modified }}</p>
                     </td>
                     <td class="last">
-                        <div class="zvn-box-btn-filter"><a
-                                href="/form/1"
-                                type="button" class="btn btn-icon btn-success" data-toggle="tooltip"
-                                data-placement="top" data-original-title="Edit">
-                            <i class="fa fa-pencil"></i>
-                        </a><a href="/delete/1"
-                            type="button" class="btn btn-icon btn-danger btn-delete"
-                            data-toggle="tooltip" data-placement="top"
-                            data-original-title="Delete">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="zvn-box-btn-filter">
+                            <a
+                                    href="{{ route('slider/edit', ['id'=>$id]) }}"
+                                    type="button" class="btn btn-icon btn-success" data-toggle="tooltip"
+                                    data-placement="top" data-original-title="Edit">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="{{ route('slider/delete', ['id'=>$id]) }}"
+                                type="button" class="btn btn-icon btn-danger btn-delete"
+                                data-toggle="tooltip" data-placement="top"
+                                data-original-title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>
