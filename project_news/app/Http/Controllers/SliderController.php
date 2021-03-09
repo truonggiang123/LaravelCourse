@@ -15,17 +15,16 @@ class SliderController extends Controller
     // }
     private $pathViewController = 'admin.slider';
     private $model;
+    private $controllerName = 'slider';
     public  function __construct()
     {
        $this->model = new MainModel();
+       view()->share('controllerName', $this -> controllerName);
     }
 
     public function index()
     {
         $items = $this->model->listItems(null,["task" => "admin-list-items"]);
-        foreach ($items as $item) {
-            echo $item->name;
-        }
-        return view($this->pathViewController. '.index');
+        return view($this->pathViewController. '.index', ["items" => $items]);
     }
 }

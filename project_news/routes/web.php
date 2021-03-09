@@ -29,5 +29,6 @@ Route::prefix($prefixAdmin)->group(function () {
     $prefix = 'slider';
     Route::prefix($prefix)->group(function () use($prefix) {
         Route::get('/', [SliderController::class, 'index'])->name($prefix);
+        Route::get('change-status-{status}/{id}', [SliderController::class, 'status'])->name($prefix .'/status');
     });
 });
