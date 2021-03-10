@@ -1,5 +1,9 @@
 @extends('admin.main')
 @section('content')
+@php
+    use App\Helpers\Template as Template;
+    $buttonFilter = Template::showButtonFilter($controllerName,$coutByStatus,$params['filter']['status']);
+@endphp
 <div class="page-header zvn-page-header clearfix">
     <div class="zvn-page-header-title">
         <h3>Danh sách User</h3>
@@ -22,17 +26,8 @@
             </div>
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-6"><a
-                            href="?filter_status=all" type="button"
-                            class="btn btn-primary">
-                        All <span class="badge bg-white">4</span>
-                    </a><a href="?filter_status=active"
-                           type="button" class="btn btn-success">
-                        Active <span class="badge bg-white">2</span>
-                    </a><a href="?filter_status=inactive"
-                           type="button" class="btn btn-success">
-                        Inactive <span class="badge bg-white">2</span>
-                    </a>
+                    <div class="col-md-6">
+                        {!! $buttonFilter !!}
                     </div>
                     <div class="col-md-6">
                         <div class="input-group">
@@ -65,14 +60,6 @@
                         </span>
                             <input type="hidden" name="search_field" value="all">
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="select_filter" class="form-control"
-                                data-field="level">
-                            <option value="default" selected="selected">Select Level</option>
-                            <option value="admin">Admin</option>
-                            <option value="member">Member</option>
-                        </select>
                     </div>
                 </div>
             </div>
