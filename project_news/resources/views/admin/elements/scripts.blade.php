@@ -12,3 +12,4 @@
 <script src={{ asset("admin1/asset/iCheck/icheck.min.js") }}></script>
 <!-- Custom Theme Scripts -->
 <script src={{ asset("admin1/js/custom.min.js") }}></script>
+<script src={{ asset("admin1/js/my-js.js") }}></script>

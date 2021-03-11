@@ -20,10 +20,9 @@ $(document).ready(function() {
 	});
 
 	$btnSearch.click(function() {
-
 		var pathname	= window.location.pathname;
 		let searchParams= new URLSearchParams(window.location.search);
-		params 			= ['page', 'filter_status', 'select_field', 'select_value'];
+		params 			= ['filter_status'];
 
 		let link		= "";
 		$.each( params, function( key, value ) {
@@ -31,11 +30,11 @@ $(document).ready(function() {
 				link += value + "=" + searchParams.get(value) + "&"
 			}
 		});
-
 		let search_field = $inputSearchField.val();
 		let search_value = $inputSearchValue.val();
 
-		window.location.href = pathname + "?" + link + 'search_field='+ search_field + '&search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();
+		window.location.href = pathname + "?" + link + 'search_field='+ search_field + '&search_value=' + search_value;
+		// search_value.replace(/\s+/g, '+').toLowerCase()
 	});
 
 	$btnClearSearch.click(function() {

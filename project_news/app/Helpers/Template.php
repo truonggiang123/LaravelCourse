@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 
+
 class Template{
     public static function showItemStatus($controllerName,$status,$id){
         $tmpStatus = [
@@ -37,18 +38,43 @@ class Template{
                         </a>',$link,$class,$value['status'], $value['count']);
             }
         }
-        
-        // <a
-        //                     href="?filter_status=all" type="button"
-        //                     class="btn btn-primary">
-        //                 All <span class="badge bg-white">4</span>
-        //             </a><a href="?filter_status=active"
-        //                    type="button" class="btn btn-success">
-        //                 Active <span class="badge bg-white">2</span>
-        //             </a><a href="?filter_status=inactive"
-        //                    type="button" class="btn btn-success">
-        //                 Inactive <span class="badge bg-white">2</span>
-        //             </a>
+        return $xhtml;
+    }
+
+    public static function showAreaSearch($controllerName,$search){
+        $xhtml = null;
+        $tmpField = config('exam.search');
+        $fieldInController = [
+            'default' => ['all','id'],
+            'slider'  => ['all','id','link','description','name']
+        ];
+        $searchField = (in_array($search['field'],$fieldInController[$controllerName])) ? $search['field']: 'all';
+
+        $controllerName = (array_key_exists($controllerName,$fieldInController)) ? $controllerName : 'default';
+        $xhtmlField = null;
+        foreach ($fieldInController[$controllerName] as $value) {
+            $xhtmlField .= sprintf('<li><a href="#" class="select-field" data-field="%s">%s</a></li>',$value,$tmpField[$value]['name']);
+        }
+        $xhtml = sprintf('
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button"
+                        class="btn btn-default dropdown-toggle btn-active-field"
+                        data-toggle="dropdown" aria-expanded="false">
+                    %s <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                   %s
+                </ul>
+            </div>
+                <input type="text" class="form-control" name="search_value" value="%s">
+            <span class="input-group-btn">
+                <button id="btn-clear" type="button" class="btn btn-success" style="margin-right: 0px">Xóa tìm kiếm</button>
+                <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
+            </span>
+                <input type="hidden" name="search_field" value="all">
+        </div>
+        ',$tmpField[$searchField]['name'],$xhtmlField,$search['value'],$search['field']);
         return $xhtml;
     }
 }
