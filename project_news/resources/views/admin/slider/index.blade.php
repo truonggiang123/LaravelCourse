@@ -10,10 +10,15 @@
         <h3>Danh sách User</h3>
     </div>
     <div class="zvn-add-new pull-right">
-        <a href="/form" class="btn btn-success"><i
+        <a href="{{ route($controllerName. '/form') }}" class="btn btn-success"><i
                 class="fa fa-plus-circle"></i> Thêm mới</a>
     </div>
 </div>
+@if (session('status'))
+<div class="alert alert-success">
+    {{ session('status') }}
+</div>
+@endif
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">

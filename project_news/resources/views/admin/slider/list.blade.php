@@ -51,7 +51,7 @@
                     <td class="last">
                         <div class="zvn-box-btn-filter">
                             <a
-                                    href="{{ route('slider/edit', ['id'=>$id]) }}"
+                                    href="{{ route('slider/form', ['id'=>$id]) }}"
                                     type="button" class="btn btn-icon btn-success" data-toggle="tooltip"
                                     data-placement="top" data-original-title="Edit">
                                 <i class="fa fa-pencil"></i>

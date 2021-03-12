@@ -29,7 +29,8 @@ Route::prefix($prefixAdmin)->group(function () {
     $prefix = 'slider';
     Route::prefix($prefix)->group(function () use($prefix) {
         Route::get('/', [SliderController::class, 'index'])->name($prefix);
-        Route::get('edit/{id}', [SliderController::class, 'edit'])->name($prefix .'/edit');
+        Route::get('form/{id?}', [SliderController::class, 'form'])->name($prefix.'/form');
+        Route::post('save', [SliderController::class, 'save'])->name($prefix.'/save');
         Route::get('delete/{id}', [SliderController::class, 'delete'])->name($prefix .'/delete');
         Route::get('change-status-{status}/{id}', [SliderController::class, 'status'])->name($prefix .'/status');
     });

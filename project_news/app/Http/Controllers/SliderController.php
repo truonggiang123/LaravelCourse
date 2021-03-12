@@ -39,4 +39,37 @@ class SliderController extends Controller
             "coutByStatus" => $coutByStatus
             ]);
     }
+    public function status(Request $request)
+    {
+        $this->params['currentStatus'] = $request->status;
+        $this->params['id'] = $request->id;
+        $this->model->saveItems($this->params, ['task'=>'change-status']);
+        return redirect()->route($this -> controllerName)->with('status', 'Status updated!');;
+    }
+    public function delete(Request $request)
+    {
+        $this->params['id'] = $request->id;
+        $this->model->deleteSlider($this->params, ['task'=>'delete-slider']);
+        return redirect()->route($this -> controllerName)->with('status', 'Delete successful!');;
+    }
+    public function form(Request $request)
+    {
+        $items = null;
+        if($request->id != null){
+            $this->params['id'] = $request->id;
+           $items =  $this->model->getItem($this->params,['task'=>'get-item']);
+        }
+        return view($this->pathViewController. '.form',[
+            "items" => $items
+        ]);
+    }
+    public function save(Request $request)
+    {
+        $items = null;
+        if($request->id != null){
+           return redirect()->route($controllerName);
+        }
+    }
+    
+    
 }

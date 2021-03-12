@@ -133,9 +133,9 @@ $(document).ready(function() {
 	});
 
 	//Init datepicker
-	$('.datepicker').datepicker({
-		format: 'dd-mm-yyyy',
-	});
+	// $('.datepicker').datepicker({
+	// 	format: 'dd-mm-yyyy',
+	// });
 
 
 	//Confirm button delete item

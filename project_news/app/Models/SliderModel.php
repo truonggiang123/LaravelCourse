@@ -22,7 +22,7 @@ class SliderModel extends Model
     public function listItems($params, $options){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','description','link','thumb','created','created_by','modified','modified_by','status');
+            $query = self::select('id','name','description','link','thumb','created','created_by','modified','modified_by','status');
             if($params['filter']['status']!='all'){
                 $query->where('status','=',$params['filter']['status']);
             }
@@ -52,5 +52,30 @@ class SliderModel extends Model
                                     ->get()->toArray();
         }
         return $result;
+    }
+    //change status
+    public function saveItems($params = null, $options = null)
+    {
+        if($options['task'] == 'change-status'){
+            $status = ($params['currentStatus'] == 'active') ? 'inactive': 'active';
+            self::where('id', $params['id'])
+                    ->update(['status' => $status]);
+        }
+    }
+    public function deleteSlider($params = null, $options = null)
+    {
+        if($options['task'] == 'delete-slider'){
+            self::where('id', $params['id'])->delete();
+        }
+    }
+    public function getItem($params = null, $options = null)
+    {
+        $result = null;
+        if($options['task'] == 'get-item'){
+            $result = self::select('id','name','description','link','thumb','status')
+                ->where('id',$params['id'])->first();
+        }
+        return $result;
+        
     }
 }
