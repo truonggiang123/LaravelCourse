@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SliderModel as MainModel;
+use App\Http\Requests\SliderRequest as MainRequest;
 
 class SliderController extends Controller
 {
@@ -63,12 +64,11 @@ class SliderController extends Controller
             "items" => $items
         ]);
     }
-    public function save(Request $request)
+    public function save(MainRequest $request)
     {
-        $items = null;
-        if($request->id != null){
-           return redirect()->route($controllerName);
-        }
+        $validated = $this->validate->rules();
+
+        echo "<h1> OK </h1>";
     }
     
     

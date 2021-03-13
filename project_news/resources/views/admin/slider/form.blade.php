@@ -4,8 +4,8 @@
     use App\Helpers\Form as FormTemplate;
     use App\Helpers\Template as Template;
     $statusValue = ['default'=>'Select status', 'active'=>'Active', 'inactive'=>'Inactive'];
-    $hiddeninputID = Form::hidden('id', $items['id']);
-    $hiddeninputThumb = Form::hidden('thumb_current', $items['thumb']);
+    $hiddeninputID = Form::hidden('id', (isset($items['id'])) ? $items['id'] : '');
+    $hiddeninputThumb = Form::hidden('thumb_current', (isset($items['thumb'])) ? $items['thumb'] : '');
     $elements = [
         [
             'label' => Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']),
@@ -44,6 +44,7 @@
         <a href="{{ route($controllerName) }}" class="btn btn-info"><i class="fa fa-step-backward"></i> Quay về</a>
     </div>
 </div>
+    @include('admin.templates.error')
 @if (session('status'))
 <div class="alert alert-success">
     {{ session('status') }}

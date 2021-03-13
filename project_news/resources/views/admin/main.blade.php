@@ -9,7 +9,7 @@
         <div class="col-md-3 left_col">
             @include('admin.elements.slider')
         </div>
-        <!-- top navigation -->
+        <!-- top navigation -->list
         <div class="top_nav">
            @include('admin.elements.top_nav')
         </div>
