@@ -22,6 +22,7 @@
                     $id             =   $val['id'];
                     $description    =   $val['description'];
                     $link           =   $val['link'];
+                    $thumbName      =   $val['thumb'];
                     $thumb          =   Template::showItemThumb($controllerName,$val['thumb'],$val['name']);
                     $created        =   $val['created'];
                     $created_by     =   $val['created_by'];
@@ -30,7 +31,7 @@
                     $status         =   Template::showItemStatus($controllerName,$val['status'],$id);
                 @endphp
                 <tr class="even pointer">
-                    <td class="">{{ $id }}</td>
+                    <td class="">{{ $key +1 }}</td>
                     <td width="40%">
                         <p><strong>Name: </strong>{{ $name }}</p>
                         <p><strong>Description: </strong>{{ $description }}</p>
@@ -56,7 +57,7 @@
                                     data-placement="top" data-original-title="Edit">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a href="{{ route('slider/delete', ['id'=>$id]) }}"
+                            <a href="{{ route('slider/delete', ['id'=>$id,'thumbName'=>$thumbName]) }}"
                                 type="button" class="btn btn-icon btn-danger btn-delete"
                                 data-toggle="tooltip" data-placement="top"
                                 data-original-title="Delete">

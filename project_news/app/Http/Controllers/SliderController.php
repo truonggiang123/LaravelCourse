@@ -50,6 +50,7 @@ class SliderController extends Controller
     public function delete(Request $request)
     {
         $this->params['id'] = $request->id;
+        $this->params['thumbName'] = $request->thumbName;
         $this->model->deleteSlider($this->params, ['task'=>'delete-slider']);
         return redirect()->route($this -> controllerName)->with('status', 'Delete successful!');;
     }
@@ -66,9 +67,15 @@ class SliderController extends Controller
     }
     public function save(MainRequest $request)
     {
-        $validated = $this->validate->rules();
-
-        echo "<h1> OK </h1>";
+        $params = $request->all();
+        $task = "add-item";
+        $notify = "Add Susseccfully!";
+        if($request->id!=null){
+            $notify = "Edit Susseccfully!";
+            $task = "edit-item";
+        }
+        $this->model->saveItems($params,['task'=>$task]);
+        return redirect()->route($this -> controllerName)->with('status', $notify);
     }
     
     

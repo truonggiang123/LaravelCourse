@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use DB;
 
 class SliderModel extends Model
@@ -11,6 +13,7 @@ class SliderModel extends Model
     use HasFactory;
     protected $table = 'slider';
     public $timestamps = false;
+    private $fileUpload = 'slider';
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
     private $field = [
@@ -18,6 +21,10 @@ class SliderModel extends Model
         'id',
         'link',
         'description'
+    ];
+    private $crudNotAccept = [
+        "_token",
+        "thumb_current"
     ];
     public function listItems($params, $options){
         $result = null;
@@ -38,7 +45,7 @@ class SliderModel extends Model
                     $query -> where($params['search']['field'], "LIKE", "%{$params['search']['value']}%");
                 }
             }
-            $result = $query->paginate($params['pagination']['totalInPage']);
+            $result = $query->orderBy('id','desc')->paginate($params['pagination']['totalInPage']);
         }
         return $result;
     }
@@ -61,10 +68,23 @@ class SliderModel extends Model
             self::where('id', $params['id'])
                     ->update(['status' => $status]);
         }
+        
+        
+        if($options['task'] == 'add-item'){
+            $thumb = $params['thumb'];
+            $params['thumb'] = Str::random(10) . '.' . $thumb->clientExtension();
+            $thumb->storeAs($this -> fileUpload, $params['thumb'],'stored_image');
+            $params['created'] = date('Y-m-d');
+            $params['created_by'] = 'giangpro';
+            $paramsInsert = array_diff_key($params,array_flip($this->crudNotAccept));
+            self::insert($paramsInsert);
+        }
+
     }
     public function deleteSlider($params = null, $options = null)
     {
         if($options['task'] == 'delete-slider'){
+            Storage::disk('stored_image')->delete($this -> fileUpload . '/'. $params['thumbName']);
             self::where('id', $params['id'])->delete();
         }
     }

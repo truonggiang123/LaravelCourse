@@ -4,7 +4,7 @@
     use App\Helpers\Form as FormTemplate;
     use App\Helpers\Template as Template;
     $statusValue = ['default'=>'Select status', 'active'=>'Active', 'inactive'=>'Inactive'];
-    $hiddeninputID = Form::hidden('id', (isset($items['id'])) ? $items['id'] : '');
+    $hiddeninputID = Form::hidden('id', (isset($items['id'])) ? $items['id'] : null);
     $hiddeninputThumb = Form::hidden('thumb_current', (isset($items['thumb'])) ? $items['thumb'] : '');
     $elements = [
         [
@@ -17,7 +17,7 @@
         ],
         [
             'label' => Form::label('status', 'Status', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']),
-            'element' => Form::select('size',$statusValue , (isset($items['status'])) ? $items['status'] : 'default', ['class' => 'form-control col-md-6 col-xs-12'])
+            'element' => Form::select('status',$statusValue , (isset($items['status'])) ? $items['status'] : 'default', ['class' => 'form-control col-md-6 col-xs-12'])
         ],
         [
             'label' => Form::label('link', 'link', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']),
