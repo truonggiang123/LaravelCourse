@@ -2,7 +2,8 @@
 
     return [
         "url" => [
-            "prefix_admin" => "admin"
+            "prefix_admin" => "admin",
+            "prefix_news" => "news",
         ],
         "search" => [
             "all"   =>    ['name'=>'Search by All'],

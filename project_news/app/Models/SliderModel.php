@@ -47,6 +47,11 @@ class SliderModel extends Model
             }
             $result = $query->orderBy('id','desc')->paginate($params['pagination']['totalInPage']);
         }
+        if($options['task'] == 'news-list-items'){
+            $query = self::select('id','name','description','link','thumb','status')
+                            ->where('status','=','active')->limit(5);
+            $result = $query -> get() -> toArray();
+        }
         return $result;
     }
 
@@ -78,6 +83,19 @@ class SliderModel extends Model
             $params['created_by'] = 'giangpro';
             $paramsInsert = array_diff_key($params,array_flip($this->crudNotAccept));
             self::insert($paramsInsert);
+        }
+        if($options['task'] == 'edit-item'){
+            if(!empty($params['thumb'])){
+                Storage::disk('stored_image')->delete($this -> fileUpload . '/'. $params['thumb']);
+                $thumb = $params['thumb'];
+                $params['thumb'] = Str::random(10) . '.' . $thumb->clientExtension();
+                $thumb->storeAs($this -> fileUpload, $params['thumb'],'stored_image');
+            }
+            $params['modified'] = date('Y-m-d');
+            $params['modified_by'] = 'giangpro';    
+            $paramsInsert = array_diff_key($params,array_flip($this->crudNotAccept));
+            self::where('id', $params['id'])
+                ->update($paramsInsert);
         }
 
     }

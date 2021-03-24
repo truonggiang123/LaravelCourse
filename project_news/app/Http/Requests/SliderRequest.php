@@ -23,12 +23,19 @@ class SliderRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this -> id;
+        $conThumb ='bail|required|image|max:500';
+        $conName  ='required|min:5|unique:slider,name';
+        if(!empty($id)){
+            $conThumb ='bail|image|max:500';
+            $conName .= ",$id";
+        }
         return [
-            'name' => 'required|min:5',
+            'name' => $conName,
             'description' => 'required',
             'link' => 'bail|required|min:5|url',
             'status' => 'bail|in:active,inactive',
-            'thumb' => 'bail|required|image|max:200'
+            'thumb' => $conThumb
         ];
     }
     public function message()
